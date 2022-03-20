@@ -1,0 +1,16 @@
+.SignUpPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.QuestionBar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    text-align: center;
+    align-self: center;
+    width: 25%;
+    font-size: 20px;
+  }

@@ -21,3 +21,13 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
 }
+
+.ButtonBorder {
+    margin-top: 5%;
+    border-radius: 42.5px;
+    text-align: center;
+    align-self: center;
+    height: 85px;
+    width: 35%;
+    background-color: aliceblue;
+  }
