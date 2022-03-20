@@ -1,12 +1,16 @@
-import './App.css';
-import ProfilePage from './components/ProfilePage';
 import React from 'react';
+import { Route, Routes } from "react-router";
+import Axios from "axios";
+import ProfilePage from './components/ProfilePage';
+import SignUpPage from './components/SignUpPage';
+import './App.css';
 
-function App() {
+
+const App = () => {
   return (
     <React.Fragment>
       <div className='App'>
-        <ProfilePage />
+        <SignUpPage />
       </div>
     </React.Fragment>
 
