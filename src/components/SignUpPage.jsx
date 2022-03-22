@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 import "./GeneralStyles.css";
 
@@ -7,6 +8,7 @@ const SignUpPage = (props) => {
   const [enteredLastName, setEnteredLastName] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+  let navigate = useNavigate();
 
   const firstnameChangeHandler = (event) => {
     setEnteredFirstName(event.target.value);
@@ -27,6 +29,7 @@ const SignUpPage = (props) => {
 
   const signUp = () => {
     console.log("CLICKED!!");
+    navigate("/");
   };
 
   const goBack = () => {
@@ -34,6 +37,7 @@ const SignUpPage = (props) => {
     setEnteredLastName("");
     setEnteredEmail("");
     setEnteredPassword("");
+    navigate("/");
   };
 
   return (

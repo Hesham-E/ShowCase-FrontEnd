@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import "./GeneralStyles.css";
 
 const LoginPage = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+  let navigate = useNavigate();
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -17,11 +19,13 @@ const LoginPage = (props) => {
 
   const signUp = () => {
     console.log("CLICKED!!");
+    navigate("/");
   };
 
   const goBack = () => {
     setEnteredEmail("");
     setEnteredPassword("");
+    navigate("/");
   };
 
   return (
@@ -39,13 +43,12 @@ const LoginPage = (props) => {
       </div>
 
       <button className="ButtonBorder" onClick={signUp}>
-      <label className="BodyText">Login</label>
-      </button>
-      
-      <button className="ButtonBorder" onClick={goBack} >
-          <label className="BodyText">Cancel</label>
+        <label className="BodyText">Login</label>
       </button>
 
+      <button className="ButtonBorder" onClick={goBack}>
+        <label className="BodyText">Cancel</label>
+      </button>
     </div>
   );
 };
