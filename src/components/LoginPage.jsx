@@ -3,18 +3,8 @@ import "./LoginPage.css";
 import "./GeneralStyles.css";
 
 const LoginPage = (props) => {
-  const [enteredFirstName, setEnteredFirstName] = useState("");
-  const [enteredLastName, setEnteredLastName] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-
-  const firstnameChangeHandler = (event) => {
-    setEnteredFirstName(event.target.value);
-  };
-
-  const lastnameChangeHandler = (event) => {
-    setEnteredLastName(event.target.value);
-  };
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -30,8 +20,6 @@ const LoginPage = (props) => {
   };
 
   const goBack = () => {
-    setEnteredFirstName("");
-    setEnteredLastName("");
     setEnteredEmail("");
     setEnteredPassword("");
   };
