@@ -9,6 +9,9 @@ const HomePage = (props) => {
 
     return (
         <div className="HomePage">
+            <div className='TitleDiv'>
+            <span className="WebTitle">SHOW CASE</span>
+            </div>
             <span className="IntroText">{siteGreeting}</span>
             <hr className="HeaderLine" />
             <img className='GreetingPic' src={greetingPic} alt="" />
