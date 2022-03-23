@@ -16,16 +16,18 @@ const LoginPage = (props) => {
     setEnteredPassword(event.target.value);
   };
 
-
-  const signUp = () => {
-    console.log("CLICKED!!");
-    navigate("/");
+  const logIn = () => {
+    props.logIn(enteredEmail, enteredPassword);
   };
 
   const goBack = () => {
+    clearPage();
+    navigate("/");
+  };
+
+  const clearPage = () => {
     setEnteredEmail("");
     setEnteredPassword("");
-    navigate("/");
   };
 
   return (
@@ -34,15 +36,15 @@ const LoginPage = (props) => {
 
       <div className="QuestionBar">
         <label className="BodyText">Email</label>
-        <input type="text" />
+        <input type="text" value={enteredEmail} onChange={emailChangeHandler} />
       </div>
 
       <div className="QuestionBar">
         <label className="BodyText">Password</label>
-        <input type="text" />
+        <input type="password" value={enteredPassword} onChange={passwordChangeHandler} />
       </div>
 
-      <button className="ButtonBorder" onClick={signUp}>
+      <button className="ButtonBorder" onClick={logIn}>
         <label className="BodyText">Login</label>
       </button>
 
