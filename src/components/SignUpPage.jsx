@@ -28,16 +28,39 @@ const SignUpPage = (props) => {
 
 
   const signUp = () => {
-    console.log("CLICKED!!");
-    navigate("/");
+    let newAcc = {
+      Account_ID: "",
+      Email: enteredEmail,
+      Password: enteredPassword,
+      First_Name: enteredFirstName,
+      Last_Name: enteredLastName,
+    }
+
+    let unique = props.allAccounts.every((account) => {
+      return account.Email !== newAcc.Email;
+    });
+
+    if (unique)
+    {
+      newAcc.Account_ID = props.allAccounts.slice(-1).Account_ID + 1;
+      props.signUp(newAcc);
+    }
+    else
+    {
+      clearPage();
+    }
   };
 
   const goBack = () => {
+    clearPage();
+    navigate("/");
+  };
+
+  const clearPage = () => {
     setEnteredFirstName("");
     setEnteredLastName("");
     setEnteredEmail("");
     setEnteredPassword("");
-    navigate("/");
   };
 
   return (
@@ -46,30 +69,30 @@ const SignUpPage = (props) => {
 
       <div className="QuestionBar">
         <label className="BodyText">First Name</label>
-        <input type="text" />
+        <input type="text" value={enteredFirstName} onChange={firstnameChangeHandler} />
       </div>
 
       <div className="QuestionBar">
         <label className="BodyText">Last Name</label>
-        <input type="text" />
+        <input type="text" value={enteredLastName} onChange={lastnameChangeHandler} />
       </div>
 
       <div className="QuestionBar">
         <label className="BodyText">Email</label>
-        <input type="text" />
+        <input type="text" value={enteredEmail} onChange={emailChangeHandler} />
       </div>
 
       <div className="QuestionBar">
         <label className="BodyText">Password</label>
-        <input type="text" />
+        <input type="text" value={enteredPassword} onChange={passwordChangeHandler} />
       </div>
 
       <button className="ButtonBorder" onClick={signUp}>
-      <label className="BodyText">Sign Up</label>
+        <label className="BodyText">Sign Up</label>
       </button>
-      
+
       <button className="ButtonBorder" onClick={goBack} >
-          <label className="BodyText">Cancel</label>
+        <label className="BodyText">Cancel</label>
       </button>
 
     </div>
