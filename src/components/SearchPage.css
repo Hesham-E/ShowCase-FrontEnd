@@ -1,0 +1,104 @@
+.iconDetails {
+    margin-left:1%;
+    float:right; 
+    height:80px;
+    width:80px; 
+} 
+
+.container2 {
+    width:auto;
+    height:auto;
+    align-content:left;
+    padding:1%;
+}
+
+.profile {
+    margin-left:1%;
+}
+
+.profileButtons {
+    float:right;
+    margin-left:1%;
+}
+
+.Name button:hover {
+  background-color: #2596be;
+  color: white;
+}
+
+.description {
+    margin-right: 10%;
+}
+
+
+
+
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnavsearch {
+  overflow: hidden;
+  background-color: #084663;
+}
+
+.topnavsearch a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnavsearch a:hover {
+  background-color: #2596be;
+  color: black;
+}
+
+.topnavsearch .search-container {
+  float: right;
+}
+
+.topnavsearch input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnavsearch .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnavsearch .search-container button:hover {
+  background: #2596be;
+}
+
+@media screen and (max-width: 600px) {
+  .topnavsearch .search-container {
+    float: none;
+  }
+  .topnavsearch a, .topnavsearch input[type=text], .topnavsearch .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnavsearch input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}

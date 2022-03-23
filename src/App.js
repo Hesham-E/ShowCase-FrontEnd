@@ -6,6 +6,8 @@ import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SideBar from './components/SideBar';
+
+import SearchPage from './components/SearchPage';
 import './App.css';
 
 
@@ -18,6 +20,8 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>
     </React.Fragment>
