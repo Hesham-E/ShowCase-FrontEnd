@@ -13,6 +13,10 @@
     margin-top: 1vh;
 }
 
+.EditButton {
+    margin: auto;
+}
+
 .SocialsButtons {
     display: flex;
     align-self: center;
