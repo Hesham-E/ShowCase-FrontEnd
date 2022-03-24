@@ -8,22 +8,27 @@ const EditProfile = (props) => {
     const [enteredLastName, setEnteredLastName] = useState(props.user.Last_Name);
     const [enteredEmail, setEnteredEmail] = useState(props.user.Email);
     const [enteredPassword, setEnteredPassword] = useState(props.user.Password);
+    const [enteredDegree, setEnteredDegree] = useState(props.profile.Degree);
+    const [enteredBio, setEnteredBio] = useState(props.profile.Biography);
     let navigate = useNavigate();
 
     const firstnameChangeHandler = (event) => {
         setEnteredFirstName(event.target.value);
     };
-
     const lastnameChangeHandler = (event) => {
         setEnteredLastName(event.target.value);
     };
-
     const emailChangeHandler = (event) => {
         setEnteredEmail(event.target.value);
     };
-
     const passwordChangeHandler = (event) => {
         setEnteredPassword(event.target.value);
+    };
+    const degreeChangeHandler = (event) => {
+        setEnteredDegree(event.target.value);
+    };
+    const bioChangeHandler = (event) => {
+        setEnteredBio(event.target.value);
     };
 
     const save = () => {
@@ -33,26 +38,32 @@ const EditProfile = (props) => {
             Password: enteredPassword,
             First_Name: enteredFirstName,
             Last_Name: enteredLastName,
-          }
+        }
 
-          let unique = props.allAccounts.every((account) => {
-              if (account.Account_ID !== editedAcc.Account_ID) {
+        let editedProfile = {
+            Profile_ID: props.profile.Profile_ID,
+            Account_ID: props.user.Account_ID,
+            Profile_Picture_URL: "../images/DefaultProfilePicture.png",
+            Degree: enteredDegree,
+            Biography: enteredBio,
+        }
+
+        let unique = props.allAccounts.every((account) => {
+            if (account.Account_ID !== editedAcc.Account_ID) {
                 return account.Email !== editedAcc.Email;
-              }
-              else {
-                  return true;
-              }
-          });
-      
-          if (unique)
-          {
-            props.editProfile(props.Account_ID, editedAcc);
+            }
+            else {
+                return true;
+            }
+        });
+
+        if (unique) {
+            props.editProfile(editedAcc, editedProfile);
             navigate("/profile");
-          }
-          else
-          {
+        }
+        else {
             resetPage();
-          }
+        }
     }
 
     const cancel = () => {
@@ -64,6 +75,8 @@ const EditProfile = (props) => {
         setEnteredLastName(props.user.Last_Name);
         setEnteredEmail(props.user.Email);
         setEnteredPassword(props.user.Password);
+        setEnteredDegree(props.profile.Degree);
+        setEnteredBio(props.profile.Biography);
     };
 
 
@@ -87,7 +100,15 @@ const EditProfile = (props) => {
                 <label className="BodyText">Password: </label>
                 <input value={enteredPassword} onChange={passwordChangeHandler} />
             </div>
-            
+            <div className='QuestionBar'>
+                <label className="BodyText">Degree: </label>
+                <input value={enteredDegree} onChange={degreeChangeHandler} />
+            </div>
+            <div className='QuestionBar'>
+                <label className="BodyText">Bio: </label>
+                <input value={enteredBio} onChange={bioChangeHandler} />
+            </div>
+
             <button className='ButtonBorder' onClick={save}>
                 <label className="BodyText">Save Changes</label>
             </button>
