@@ -9,6 +9,7 @@ import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
 import NavBar from './components/NavBar';
+import AddPostPage from './components/AddPostPage';
 
 
 let accounts = [
@@ -34,7 +35,7 @@ let blankAcc = {
   Password: "",
   First_Name: "",
   Last_Name: "",
-}
+};
 
 const App = () => {
   let navigate = useNavigate();
@@ -79,10 +80,11 @@ const App = () => {
           <Route path="/signup" element={<SignUpPage signUp={signUpHandler} allAccounts={accountList}/>} />
           <Route path="/profile" element={<ProfilePage user={currentUser} />} />
           <Route path="/search" element={<SearchPage />} />
+          {/* <Route path="/addpost"element={<AddPostPage addPost={addPostHandler} />}/> */}
+          <Route path="/addpost" element={<AddPostPage user={currentUser} />} />
         </Routes>
       </div>
     </React.Fragment>
-
   );
 }
 
