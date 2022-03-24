@@ -9,6 +9,7 @@ import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
 import NavBar from './components/NavBar';
+import EditProfile from './components/EditProfile';
 
 
 let accounts = [
@@ -54,6 +55,8 @@ const App = () => {
       if (email === account.Email && password === account.Password) {
         setAuthenticate(true);
         setCurrentUser(account);
+        console.log(authenticate);
+        console.log(account);
         navigate("/profile");
       }
     });
@@ -67,7 +70,11 @@ const App = () => {
     setAuthenticate(true);
     setCurrentUser(newAccount);
     navigate("/profile");
-  }
+  };
+
+  const editProfileHander = (accountID, editedAccount) => {
+    accountList[accountID] = editedAccount;
+  } 
 
   return (
     <React.Fragment>
@@ -77,7 +84,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage logIn={logInHandler} />} />
           <Route path="/signup" element={<SignUpPage signUp={signUpHandler} allAccounts={accountList}/>} />
-          <Route path="/profile" element={<ProfilePage user={currentUser} />} />
+          <Route path="/profile" element={<ProfilePage user={currentUser} auth={authenticate}/>} />
+          <Route path="/edit-profile" element={<EditProfile user={currentUser} editProfile={editProfileHander} allAccounts={accountList}/>} />
           <Route path="/search" element={<SearchPage />} />
         </Routes>
       </div>

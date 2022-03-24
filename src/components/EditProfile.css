@@ -1,0 +1,17 @@
+.EditProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: end;
+    height: 100vh;
+}
+
+.QuestionBar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vh;
+    text-align: center;
+    align-self: center;
+    width: 25%;
+    font-size: 20px;
+}
