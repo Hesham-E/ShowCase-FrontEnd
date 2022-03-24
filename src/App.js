@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Route, Routes } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import './App.css';
 import ProfilePage from './components/ProfilePage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
-import './App.css';
+import NavBar from './components/NavBar';
+
 
 let accounts = [
   {
@@ -70,6 +72,7 @@ const App = () => {
   return (
     <React.Fragment>
       <div className='App'>
+        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage logIn={logInHandler} />} />
