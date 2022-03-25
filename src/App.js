@@ -9,6 +9,7 @@ import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
 import NavBar from './components/NavBar';
+import AddPostPage from './components/AddPostPage';
 import EditProfile from './components/EditProfile';
 
 
@@ -45,7 +46,7 @@ let blankAcc = {
   Password: "",
   First_Name: "",
   Last_Name: "",
-}
+};
 
 let blankProfile = {
   Profile_ID: "",
@@ -131,10 +132,11 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage user={currentUser} profile={currentProfile} auth={authenticate} allProfiles={profileList} />} />
           <Route path="/edit-profile" element={<EditProfile user={currentUser} profile={currentProfile} editProfile={editProfileHander} allAccounts={accountList} allProfiles={profileList} />} />
           <Route path="/search" element={<SearchPage />} />
+          {/* <Route path="/addpost"element={<AddPostPage addPost={addPostHandler} />}/> */}
+          <Route path="/addpost" element={<AddPostPage user={currentUser} />} />
         </Routes>
       </div>
     </React.Fragment>
-
   );
 }
 

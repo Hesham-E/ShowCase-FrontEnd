@@ -8,6 +8,8 @@ const ProfilePage = (props) => {
 
 
     let profilePic = require("../images/DefaultProfilePicture.png");
+    let addPostIcon = require("../images/addIcon.png");
+    let editPostIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
     let navigate = useNavigate();
@@ -18,6 +20,12 @@ const ProfilePage = (props) => {
 
     return (
         <div className="ProfilePage">
+            <div className="Icon">
+                <a href="/addpost">
+                    <img className="Icon" src={addPostIcon} alt="" />
+                </a>
+                <img className="Icon" src={editPostIcon} alt="" />
+            </div>
             <img className="ProfilePic" src={profilePic} alt="" />
             {props.auth ? <button className='EditButton' onClick={editProfile}>Edit Profile</button> : {}}
             <hr className='HeaderLine' />
