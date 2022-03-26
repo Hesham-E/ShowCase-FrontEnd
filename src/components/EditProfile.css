@@ -3,7 +3,15 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: end;
-    height: 100vh;
+    height: 215vh;
+}
+
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: end;
+    width: 99vw;
 }
 
 .QuestionBar {
@@ -15,3 +23,7 @@
     width: 25%;
     font-size: 20px;
 }
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+  }
