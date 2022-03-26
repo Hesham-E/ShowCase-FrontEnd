@@ -6,12 +6,11 @@
     height: 215vh;
 }
 
-.ProfilePage {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: end;
-    width: 99vw;
+.ProfilePic {
+    align-self: center;
+    height: 15vh;
+    border-radius: 20%;
+    margin-bottom: 3vh;
 }
 
 .QuestionBar {
