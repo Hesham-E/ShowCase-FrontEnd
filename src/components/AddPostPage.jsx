@@ -42,7 +42,7 @@ const AddPostPage = (props) => {
 
   const goBack = () => {
     clearPage();
-    navigate("/");
+    navigate("/profile");
   };
 
   const clearPage = () => {
