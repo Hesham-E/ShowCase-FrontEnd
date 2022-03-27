@@ -6,20 +6,24 @@ import { useNavigate } from 'react-router';
 
 const ProfilePage = (props) => {
 
-
     let profilePic = require("../images/DefaultProfilePicture.png");
+    let addPostIcon = require("../images/addIcon.png");
+    let editPostIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
     let navigate = useNavigate();
 
-    const editProfile = () => {
-        navigate("/edit-profile")
-    }
-
     return (
         <div className="ProfilePage">
+            <div className="Icon">
+                <a href="/addpost">
+                    <img className="Icon" src={addPostIcon} alt="" />
+                </a>
+                < a href="/edit-profile">
+                    <img className="Icon" src={editPostIcon} alt="" />
+                </a>
+            </div>
             <img className="ProfilePic" src={profilePic} alt="" />
-            {props.auth ? <button className='EditButton' onClick={editProfile}>Edit Profile</button> : {}}
             <hr className='HeaderLine' />
             <span className='HeaderText'>{userName}</span>
             <span className='BodyText'>{userBio}</span>

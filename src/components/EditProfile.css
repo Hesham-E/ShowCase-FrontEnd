@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: end;
-    height: 100vh;
 
     background-image: url("../images/Background.png");
     background-position: center;
@@ -13,6 +12,14 @@
     font-family: Arial, Helvetica, sans-serif;
     height:fit-content;
     min-height: 100vh;
+    height: 215vh;
+}
+
+.ProfilePic {
+    align-self: center;
+    height: 15vh;
+    border-radius: 20%;
+    margin-bottom: 3vh;
 }
 
 .QuestionBar {
@@ -24,3 +31,7 @@
     width: 25%;
     font-size: 20px;
 }
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+  }

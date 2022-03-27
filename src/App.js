@@ -9,6 +9,7 @@ import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import SearchPage from './components/SearchPage';
 import NavBar from './components/NavBar';
+import AddPostPage from './components/AddPostPage';
 import EditProfile from './components/EditProfile';
 
 
@@ -36,6 +37,9 @@ let profiles = [
     Profile_Picture_URL: "../images/DefaultProfilePicture.png",
     Degree: "None",
     Biography: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+    Resume: "wwww.resume.com/test",
+    Linkedin: "wwww.linkedin.com/test",
+    GitHub: "www.github.com/test",
   }
 ];
 
@@ -45,7 +49,7 @@ let blankAcc = {
   Password: "",
   First_Name: "",
   Last_Name: "",
-}
+};
 
 let blankProfile = {
   Profile_ID: "",
@@ -131,10 +135,11 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage user={currentUser} profile={currentProfile} auth={authenticate} allProfiles={profileList} />} />
           <Route path="/edit-profile" element={<EditProfile user={currentUser} profile={currentProfile} editProfile={editProfileHander} allAccounts={accountList} allProfiles={profileList} />} />
           <Route path="/search" element={<SearchPage />} />
+          {/* <Route path="/addpost"element={<AddPostPage addPost={addPostHandler} />}/> */}
+          <Route path="/addpost" element={<AddPostPage user={currentUser} />} />
         </Routes>
       </div>
     </React.Fragment>
-
   );
 }
 

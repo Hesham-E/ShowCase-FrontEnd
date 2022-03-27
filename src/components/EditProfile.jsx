@@ -4,14 +4,24 @@ import "./GeneralStyles.css";
 import "./EditProfile.css";
 
 const EditProfile = (props) => {
+    const [enteredProfilePic, setEnteredProfilePic] = useState(props.profile.Profile_Picture_URL);
     const [enteredFirstName, setEnteredFirstName] = useState(props.user.First_Name);
     const [enteredLastName, setEnteredLastName] = useState(props.user.Last_Name);
     const [enteredEmail, setEnteredEmail] = useState(props.user.Email);
     const [enteredPassword, setEnteredPassword] = useState(props.user.Password);
     const [enteredDegree, setEnteredDegree] = useState(props.profile.Degree);
     const [enteredBio, setEnteredBio] = useState(props.profile.Biography);
+    const [enteredResumeLink, setEnteredResumeLink] = useState(props.profile.Resume);
+    const [enteredLinkedinLink, setEnteredLinkedinLink] = useState(props.profile.Linkedin);
+    const [enteredGitHubLink, setEnteredGitHubLink] = useState(props.profile.GitHub);
+
+    let profilePic = require("../images/DefaultProfilePicture.png");
+    
     let navigate = useNavigate();
 
+    const profilePicChangeHandler = (event) => {
+        setEnteredProfilePic(event.target.value);
+    };
     const firstnameChangeHandler = (event) => {
         setEnteredFirstName(event.target.value);
     };
@@ -30,6 +40,15 @@ const EditProfile = (props) => {
     const bioChangeHandler = (event) => {
         setEnteredBio(event.target.value);
     };
+    const resumeLinkChangeHandler = (event) => {
+        setEnteredResumeLink(event.target.value);
+    };
+    const linkedinLinkChangeHandler = (event) => {
+        setEnteredLinkedinLink(event.target.value);
+    };
+    const gitHubLinkChangeHandler = (event) => {
+        setEnteredGitHubLink(event.target.value);
+    };
 
     const save = () => {
         let editedAcc = {
@@ -46,6 +65,9 @@ const EditProfile = (props) => {
             Profile_Picture_URL: "../images/DefaultProfilePicture.png",
             Degree: enteredDegree,
             Biography: enteredBio,
+            Resume: props.profile.Resume,
+            Linkedin: props.profile.Linkedin,
+            GitHub: props.profile.GitHub,    
         }
 
         let unique = props.allAccounts.every((account) => {
@@ -71,19 +93,27 @@ const EditProfile = (props) => {
     }
 
     const resetPage = () => {
+        setEnteredProfilePic(props.profile.Profile_Picture_URL);
         setEnteredFirstName(props.user.First_Name);
         setEnteredLastName(props.user.Last_Name);
         setEnteredEmail(props.user.Email);
         setEnteredPassword(props.user.Password);
         setEnteredDegree(props.profile.Degree);
         setEnteredBio(props.profile.Biography);
+        setEnteredResumeLink(props.profile.Resume);
+        setEnteredLinkedinLink(props.profile.Linkedin);
+        setEnteredGitHubLink(props.profile.GitHub);
     };
-
 
     return (
         <div className='EditProfile'>
             <label className="HeaderText">Edit Your Profile!</label>
-
+            <div className="QuestionBar">
+                <label className="BodyText">Profile Picture:</label>
+                <img className="ProfilePic" src={profilePic} alt="" />
+                {/*  value={enteredProfilePic} onChange={profilePicChangeHandler */}
+                <input type="file" onChange={profilePicChangeHandler} />
+            </div>            
             <div className='QuestionBar'>
                 <label className="BodyText">First Name: </label>
                 <input value={enteredFirstName} onChange={firstnameChangeHandler} />
@@ -106,9 +136,20 @@ const EditProfile = (props) => {
             </div>
             <div className='QuestionBar'>
                 <label className="BodyText">Bio: </label>
-                <input value={enteredBio} onChange={bioChangeHandler} />
+                <textarea rows={5} value={enteredBio} onChange={bioChangeHandler}></textarea>
             </div>
-
+            <div className='QuestionBar'>
+                <label className="BodyText">Resume Link: </label>
+                <input value={enteredResumeLink} onChange={resumeLinkChangeHandler} />
+            </div>
+            <div className='QuestionBar'>
+                <label className="BodyText">Linkedin: </label>
+                <input value={enteredLinkedinLink} onChange={linkedinLinkChangeHandler} />
+            </div>
+            <div className='QuestionBar'>
+                <label className="BodyText">GitHub: </label>
+                <input value={enteredGitHubLink} onChange={gitHubLinkChangeHandler} />
+            </div>
             <button className='ButtonBorder' onClick={save}>
                 <label className="BodyText">Save Changes</label>
             </button>
