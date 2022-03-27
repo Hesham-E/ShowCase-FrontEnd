@@ -10,7 +10,7 @@ const HomePage = (props) => {
     return (
         <div className="HomePage">
             <div className='TitleDiv'>
-                <h1 className="WebTitle">SH&#128188;W CASE</h1>
+                <h1 className="WebTitle"><big>SH&#128188;W CASE</big></h1>
             </div>
             <span className="IntroText">{siteGreeting}</span>
             <hr className="HeaderLine" />
