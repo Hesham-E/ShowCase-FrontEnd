@@ -10,17 +10,6 @@ function SearchPage() {
 
     return (
         <div className="HomePage">
-            <div class="topnavsearch">
-                <a class="active" href="/">Home</a>
-                <a href="/login">Sign-in</a>
-                <a href="/signup">Sign-up</a>
-                <div class="search-container">
-                    <form action="/searchresults">
-                        <input type="text" placeholder="Search.." name="search"/>
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
 
             <div className='TitleDiv'>
                 <h1 className="WebTitle">SH&#128188;W CASE</h1>
