@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -67,45 +67,62 @@ const App = () => {
   // const [currentUser, setCurrentUser] = useState(blankAcc);
   const [currentUser, setCurrentUser] = useState(accountList[1]); //just for testing
   const [currentProfile, setCurrentProfile] = useState(profileList[0]);
+  const [inLoginFunc, setInLoginFunc] = useState(false);
+  const [inSignUpFunc, setInSignUpFunc] = useState(false);
 
   const logInHandler = (email, password) => {
-    // Axios.get(allusersAPIcommand, {}).then(
-    //   (response) => {
-    //     setAccountList([...accountList, ...response.data]);
-    //   }
-    // );
+    console.log("In loginHandler");
+    Axios.get("http://localhost:3000/api/account", {}).then(
+      (response) => {
+        setAccountList([...accountList, ...response.data]);
+        setInLoginFunc(!inLoginFunc);
 
-    accountList.forEach((account) => {
-      if (email === account.Email && password === account.Password) {
-        setAuthenticate(true);
-        setCurrentUser(account);
-        setCurrentProfile(profileList.find((obj) => {
-          if(obj.Account_ID === currentUser.Account_ID) {
-            return obj;
+        accountList.forEach((account) => {
+          if (email === account.Email && password === account.Password) {
+            setAuthenticate(true);
+            setCurrentUser(account);
+            setCurrentProfile(profileList.find((obj) => {
+              if (obj.Account_ID === currentUser.Account_ID) {
+                return obj;
+              }
+            }));
+            setInLoginFunc(!inLoginFunc);
+            console.log(account);
+            navigate("/profile");
           }
-        })
-        );
-        console.log(authenticate);
-        console.log(account);
-        console.log(currentProfile);
-        navigate("/profile");
+        });
       }
-    });
+    );
   };
+
+  useEffect(() => { //jank way to ensure accountList updated before verifying inputed details
+    console.log(accountList);
+    console.log(currentProfile);
+    console.log(authenticate);
+  }, [inLoginFunc]);
 
   const signUpHandler = (newAccount) => {
-    setAccountList((prevState) => {
-      return [newAccount, ...prevState];
+    console.log("In signUpHandler");
+    Axios.post(`http://localhost:3000/api/account/${newAccount.Account_ID}/${newAccount.Email}/${newAccount.Password}/${newAccount.First_Name}/${newAccount.Last_Name}`, {}).then((response) => {
+      setAuthenticate(true);
+      setCurrentUser(newAccount);
+      setAccountList((prevState) => {
+        return [...prevState, newAccount];
+      });
+      setInSignUpFunc(!inSignUpFunc);
+      navigate("/profile");
     });
-
-    setAuthenticate(true);
-    setCurrentUser(newAccount);
-    navigate("/profile");
   };
+
+  useEffect(() => { //jank way to ensure accountList updated before using inputed details
+    console.log(accountList);
+    console.log(currentProfile);
+    console.log(authenticate);
+  }, [inSignUpFunc]);
 
   const editProfileHander = (editedAccount, editedProfile) => {
     let tempAccList = accountList;
-    let accIndex = tempAccList.find(acc => 
+    let accIndex = tempAccList.find(acc =>
       acc.Account_ID === editedAccount.Account_ID
     );
     tempAccList[accIndex] = editedAccount;
@@ -114,8 +131,8 @@ const App = () => {
     setCurrentUser(editedAccount);
 
     let tempProfileList = profileList;
-    let profileIndex = tempProfileList.find(acc => 
-       acc.Account_ID === editedProfile.Account_ID
+    let profileIndex = tempProfileList.find(acc =>
+      acc.Account_ID === editedProfile.Account_ID
     );
     tempProfileList[profileIndex] = editedProfile;
     console.log(tempProfileList[profileIndex]);

@@ -2,7 +2,6 @@ import React from 'react';
 import "./ProfilePage.css";
 import "./GeneralStyles.css";
 import PostCard from './PostCard';
-import { useNavigate } from 'react-router';
 
 const ProfilePage = (props) => {
 
@@ -11,11 +10,10 @@ const ProfilePage = (props) => {
     let editPostIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
-    let navigate = useNavigate();
 
     return (
         <div className="ProfilePage">
-            <div className="Icon">
+            {props.auth ? <div className="Icon">
                 <a href="/addpost">
                     <img className="Icon" src={addPostIcon} alt="" />
                 </a>
@@ -23,6 +21,9 @@ const ProfilePage = (props) => {
                     <img className="Icon" src={editPostIcon} alt="" />
                 </a>
             </div>
+            :
+            {}}
+            
             <img className="ProfilePic" src={profilePic} alt="" />
             <hr className='HeaderLine' />
             <span className='HeaderText'>{userName}</span>
