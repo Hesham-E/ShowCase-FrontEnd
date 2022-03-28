@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "./AddPostPage.css";
 import "./GeneralStyles.css";
 
 const AddPostPage = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredCaption, setEnteredCaption] = useState("");
-  const [enteredImage, setEnteredImage] = useState("");
+  const [enteredImage, setEnteredImage] = useState({
+    file:[],
+    filepreview: null,
+   });
+  const [isSucces, setSuccess] = useState(null);
+
   let navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
@@ -17,17 +23,20 @@ const AddPostPage = (props) => {
     setEnteredCaption(event.target.value);
   };
 
-  const imageChangeHandler = (event) => {
-    setEnteredImage(event.target.value);
-  };
+   const imageChangeHandler = (event) => {
+    setEnteredImage({
+      ...enteredImage,
+      file:event.target.files[0],
+      filepreview:URL.createObjectURL(event.target.files[0]),
+    });
 
-  const addPost = () => {
-    let newPost = {
-      Account_ID: "",
-      Title: enteredTitle,
-      Caption: enteredCaption,
-      Image: enteredImage,
-    };
+  // const addPost = () => {
+  //   let newPost = {
+  //     Account_ID: "",
+  //     Title: enteredTitle,
+  //     Caption: enteredCaption,
+  //     Image: enteredImage,
+  //   };
     // let unique = props.allAccounts.every((account) => {
     //   return account.Email !== newPost.Email;
     // });
@@ -51,27 +60,47 @@ const AddPostPage = (props) => {
     setEnteredImage("");
   };
 
+  //Sending information to backend
+  const addPost = async () =>{
+    const formdata = new FormData(); 
+    formdata.append('avatar', enteredImage.file);
+
+    axios.post("http://localhost:3000/imageupload", formdata,{   
+            headers: { "Content-Type": "multipart/form-data" } 
+    })
+    .then(res => { // then print response status
+      console.warn(res);
+      if(res.data.success === 1){
+        setSuccess("Image upload successfully");
+      }
+
+    })
+  }
+
   return (
     <div className="AddPostPage">
-      <label className="HeaderText">Add Post</label>
+      <label className="HeaderText">Add Post:</label>
 
       <div className="QuestionBar">
-        <label className="BodyText">Title</label>
+        <label className="BodyText">Title:</label>
         <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
       </div>
 
       <div className="QuestionBar">
-        <label className="BodyText">Caption</label>
-        <textarea
-          rows={5}
-          value={enteredCaption}
-          onChange={captionChangeHandler}
-        ></textarea>
+        <label className="BodyText">Caption:</label>
+        <textarea rows={5} value={enteredCaption} onChange={captionChangeHandler}></textarea>
       </div>
 
       <div className="QuestionBar">
-        <label className="BodyText">Image</label>
-        <input type="file" value={enteredImage} onChange={imageChangeHandler} />
+      {isSucces !== null ? <h4> {isSucces} </h4> :null }
+        <label className="BodyText">Image:</label>
+        <input type="file" onChange={imageChangeHandler} />
+        
+      </div>
+      <div className="QuestionBar">
+      {enteredImage.filepreview != null ? 
+        <img className="previewimg"  src={enteredImage.filepreview} alt="UploadImage" />
+      : null}
       </div>
 
       <button className="ButtonBorder" onClick={addPost}>
