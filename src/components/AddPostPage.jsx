@@ -63,9 +63,14 @@ const AddPostPage = (props) => {
   //Sending information to backend
   const addPost = async () =>{
     const formdata = new FormData(); 
+    //Finish guessing that this will work
     formdata.append('avatar', enteredImage.file);
+    formdata.append('Title', enteredTitle);
+    formdata.append('Caption', enteredCaption);
+    formdata.append('Profile_ID', '1');
+    formdata.append('Account_ID', '1');
 
-    axios.post("http://localhost:3000/imageupload", formdata,{   
+    axios.post("http://localhost:3000/post_photos/:post_id/:profileID/:accountID/:photo_url", formdata,{   
             headers: { "Content-Type": "multipart/form-data" } 
     })
     .then(res => { // then print response status
