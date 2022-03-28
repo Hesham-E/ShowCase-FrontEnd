@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: end;
-  height: 120vh;
+  height: 100vh;
+  height:fit-content;
 }
 
 .QuestionBar {
