@@ -42,9 +42,6 @@ const SignUpPage = (props) => {
 
     if (unique)
     {
-      console.log(props.allAccounts);
-      newAcc.Account_ID = parseInt(props.allAccounts[props.allAccounts.length - 1].Account_ID) + 1;
-      console.log(newAcc.Account_ID);
       props.signUp(newAcc);
     }
     else

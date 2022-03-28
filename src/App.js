@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Route, Routes } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -15,14 +15,14 @@ import EditProfile from './components/EditProfile';
 
 let accounts = [
   {
-    Account_ID: "0",
+    Account_ID: 0,
     Email: "dagvadorj.altankhuya@ucalgary.ca",
     Password: "Password",
     First_Name: "Tom",
     Last_Name: "Altankhuyag",
   },
   {
-    Account_ID: "1",
+    Account_ID: 1,
     Email: "Email",
     Password: "Password",
     First_Name: "Test",
@@ -61,12 +61,13 @@ let blankProfile = {
 
 const App = () => {
   let navigate = useNavigate();
-  const [authenticate, setAuthenticate] = useState(false);
+  const accList = useRef(accounts);
+  const authenticate = useRef(false);
   const [accountList, setAccountList] = useState(accounts);
-  const [profileList, setProfileList] = useState(profiles);
+  const profileList = useRef(profiles);
   // const [currentUser, setCurrentUser] = useState(blankAcc);
   const [currentUser, setCurrentUser] = useState(accountList[1]); //just for testing
-  const [currentProfile, setCurrentProfile] = useState(profileList[0]);
+  const [currentProfile, setCurrentProfile] = useState(profileList.current[0]);
   const [inLoginFunc, setInLoginFunc] = useState(false);
   const [inSignUpFunc, setInSignUpFunc] = useState(false);
 
@@ -74,23 +75,29 @@ const App = () => {
     console.log("In loginHandler");
     Axios.get("http://localhost:3000/api/account", {}).then(
       (response) => {
+        accList.current = [...accountList, ...response.data];
         setAccountList([...accountList, ...response.data]);
         setInLoginFunc(!inLoginFunc);
 
-        accountList.forEach((account) => {
-          if (email === account.Email && password === account.Password) {
-            setAuthenticate(true);
-            setCurrentUser(account);
-            setCurrentProfile(profileList.find((obj) => {
-              if (obj.Account_ID === currentUser.Account_ID) {
-                return obj;
+        Axios.get("http://localhost:3000/api/profile", {}).then(
+          (response) => {
+            profileList.current = response.data;
+            accList.current.forEach((account) => {
+              if (email === account.Email && password === account.Password) {
+                authenticate.current = true;
+                setCurrentUser(account);
+                setCurrentProfile(profileList.current.find((obj) => {
+                  if (obj.Account_ID === currentUser.Account_ID) {
+                    return obj;
+                  }
+                }));
+                setInLoginFunc(!inLoginFunc);
+                console.log(account);
+                navigate("/profile");
               }
-            }));
-            setInLoginFunc(!inLoginFunc);
-            console.log(account);
-            navigate("/profile");
+            });
           }
-        });
+        );
       }
     );
   };
@@ -103,15 +110,32 @@ const App = () => {
 
   const signUpHandler = (newAccount) => {
     console.log("In signUpHandler");
-    Axios.post(`http://localhost:3000/api/account/${newAccount.Account_ID}/${newAccount.Email}/${newAccount.Password}/${newAccount.First_Name}/${newAccount.Last_Name}`, {}).then((response) => {
-      setAuthenticate(true);
-      setCurrentUser(newAccount);
-      setAccountList((prevState) => {
-        return [...prevState, newAccount];
-      });
-      setInSignUpFunc(!inSignUpFunc);
-      navigate("/profile");
-    });
+    Axios.get("http://localhost:3000/api/account", {}).then(
+      (response) => {
+        accList.current = [...accountList, ...response.data];
+        setAccountList([...accountList, ...response.data]);
+        console.log(accountList);
+        newAccount.Account_ID = accountList[accountList.length - 1].Account_ID + 1;
+        console.log(newAccount.Account_ID);
+
+        Axios.post(`http://localhost:3000/api/account/${newAccount.Account_ID}/${newAccount.Email}/${newAccount.Password}/${newAccount.First_Name}/${newAccount.Last_Name}`, {}).then((response) => {
+          authenticate.current = true;
+          setCurrentUser(newAccount);
+          accList.current = [...accountList, newAccount];
+          setAccountList((prevState) => {
+            return [...prevState, newAccount];
+          });
+          setInSignUpFunc(!inSignUpFunc);
+
+          Axios.post(`http://localhost:3000/api/profile`, {
+            Account_ID: newAccount.Account_ID
+          }).then((response) => {
+            navigate("/profile");
+          });
+        });
+      }
+    );
+
   };
 
   useEffect(() => { //jank way to ensure accountList updated before using inputed details
@@ -130,13 +154,13 @@ const App = () => {
     setAccountList(tempAccList);
     setCurrentUser(editedAccount);
 
-    let tempProfileList = profileList;
+    let tempProfileList = profileList.current;
     let profileIndex = tempProfileList.find(acc =>
       acc.Account_ID === editedProfile.Account_ID
     );
     tempProfileList[profileIndex] = editedProfile;
     console.log(tempProfileList[profileIndex]);
-    setProfileList(tempProfileList);
+    profileList.current = tempProfileList;
     setCurrentProfile(editedProfile);
   };
 
@@ -149,8 +173,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage logIn={logInHandler} />} />
           <Route path="/signup" element={<SignUpPage signUp={signUpHandler} allAccounts={accountList} />} />
-          <Route path="/profile" element={<ProfilePage user={currentUser} profile={currentProfile} auth={authenticate} allProfiles={profileList} />} />
-          <Route path="/edit-profile" element={<EditProfile user={currentUser} profile={currentProfile} editProfile={editProfileHander} allAccounts={accountList} allProfiles={profileList} />} />
+          <Route path="/profile" element={<ProfilePage user={currentUser} profile={currentProfile} auth={authenticate} allProfiles={profileList.current} />} />
+          <Route path="/edit-profile" element={<EditProfile user={currentUser} profile={currentProfile} editProfile={editProfileHander} allAccounts={accountList} allProfiles={profileList.current} />} />
           <Route path="/search" element={<SearchPage />} />
           {/* <Route path="/addpost"element={<AddPostPage addPost={addPostHandler} />}/> */}
           <Route path="/addpost" element={<AddPostPage user={currentUser} />} />
