@@ -1,0 +1,31 @@
+.iconDetails {
+    margin-left:1%;
+    float:right; 
+    height:80px;
+    width:80px; 
+} 
+
+.container2 {
+    width:auto;
+    height:auto;
+    align-content:left;
+    padding:1%;
+}
+
+.profile {
+    margin-left:1%;
+}
+
+.profileButtons {
+    float:right;
+    margin-left:1%;
+}
+
+.Name button:hover {
+  background-color: #2596be;
+  color: white;
+}
+
+.description {
+    margin-right: 10%;
+}
