@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
 import "./GeneralStyles.css";
 import PostCard from './PostCard';
@@ -10,14 +11,15 @@ const ProfilePage = (props) => {
     let editPostIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
+    let navigate = useNavigate();
 
     return (
         <div className="ProfilePage">
             {props.auth ? <div className="Icon">
-                <a href="/addpost">
+                <a onClick={() => {navigate("/addpost")}}>
                     <img className="Icon" src={addPostIcon} alt="" />
                 </a>
-                < a href="/edit-profile">
+                <a onClick={() => {navigate("/edit-profile")}}>
                     <img className="Icon" src={editPostIcon} alt="" />
                 </a>
             </div>
