@@ -135,7 +135,6 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage user={currentUser} profile={currentProfile} auth={authenticate} allProfiles={profileList} />} />
           <Route path="/edit-profile" element={<EditProfile user={currentUser} profile={currentProfile} editProfile={editProfileHander} allAccounts={accountList} allProfiles={profileList} />} />
           <Route path="/search" element={<SearchPage />} />
-          {/* <Route path="/addpost"element={<AddPostPage addPost={addPostHandler} />}/> */}
           <Route path="/addpost" element={<AddPostPage user={currentUser} />} />
         </Routes>
       </div>
