@@ -36,23 +36,23 @@ let profiles = [
   },
 ];
 
-// let post = [
-//   {
-//     Profile_ID: 0,
-//     Account_ID: 0,
-//     Title: "Automated Robot",
-//     Caption: "af fajeijeifajiejfai afejiefa  fejiajei s jeifjsif  fsjeijsies dakda jeifaejfa jekwlejiq nvqoefsnae bajoe afjaoehfa afjoejf afoejoaf aofejaoejof t explicabo. Nemo enim ipsam voluptatem qui oluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores ccusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure repr",
-//   }
-// ]
+let posts = [
+  {
+    Profile_ID: 0,
+    Account_ID: 0,
+    Title: "Automated Robot",
+    Caption: "af fajeijeifajiejfai afejiefa  fejiajei s jeifjsif  fsjeijsies dakda jeifaejfa jekwlejiq nvqoefsnae bajoe afjaoehfa afjoejf afoejoaf aofejaoejof t explicabo. Nemo enim ipsam voluptatem qui oluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores ccusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure repr",
+  }
+]
 
-// let postPhotos = [
-//   {
-//     Post_ID: 0,
-//     Profile_ID: 0,
-//     Account_ID: 0,
-//     Post_Picture_URL: "https://github.com/Hesham-E/ShowCase-FrontEnd/blob/main/src/images/SortingRobot.png?raw=true",
-//   }
-// ]
+let postPhotos = [
+  {
+    Post_ID: 0,
+    Profile_ID: 0,
+    Account_ID: 0,
+    Post_Picture_URL: "https://github.com/Hesham-E/ShowCase-FrontEnd/blob/main/src/images/SortingRobot.png?raw=true",
+  }
+]
 
 let blankAcc = {
   Account_ID: "",
@@ -78,13 +78,13 @@ const App = () => {
   const accList = useRef(accounts);
   const authenticate = useRef(false);
   const profileList = useRef(profiles);
-  // const postList = useRef(post);
-  // const postPhotoList = useRef(postPhotos);
-  // const [currentUser, setCurrentUser] = useState(blankAcc);
+  const postList = useRef(posts);
+  const postPhotoList = useRef(postPhotos);
+  const [currentUser, setCurrentUser] = useState(blankAcc);
   const user = useRef(accList.current[1]);
   const profile = useRef(profileList.current[0]);
-  // const post = useRef(postList.current[0]);
-  // const postPhoto = useRef(postPhotoList.current[0]);
+  const post = useRef(postList.current[0]);
+  const postPhoto = useRef(postPhotoList.current[0]);
   const [inLoginFunc, setInLoginFunc] = useState(false);
   const [inSignUpFunc, setInSignUpFunc] = useState(false);
 
@@ -179,30 +179,30 @@ const App = () => {
   };
 
   const addPostHandler = (editedPost, editedPostPhotos) => {
-      // //Send title and caption to api to insert to database
-      // Axios.post(`http://localhost:3000/post/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${post.current.Title}/${post.current.Caption}`, {
-      //   Profile_ID: editedPost.Profile_ID,
-      //   Account_ID: editedPost.Account_ID,
-      //   Title: editedPost.Title,
-      //   Caption: editedPost.Caption,
-      // }).then(() => {
-      //   alert("successful post post");
-      // });
+      //Send title and caption to api to insert to database
+      Axios.post(`http://localhost:3000/post/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${post.current.Title}/${post.current.Caption}`, {
+        Profile_ID: editedPost.Profile_ID,
+        Account_ID: editedPost.Account_ID,
+        Title: editedPost.Title,
+        Caption: editedPost.Caption,
+      }).then(() => {
+        alert("successful post post");
+      });
   
-      // //Get Post ID
-      // Axios.get(`http://localhost:3000/post/last_id`).then((response) => {
-      //   postPhotoList.current = [...postPhoto, ...response.data];
-      // });
+      //Get Post ID
+      Axios.get(`http://localhost:3000/post/last_id`).then((response) => {
+        postPhotoList.current = [...postPhotos, ...response.data];
+      });
   
-      // // //Send post photo to api to insert to database
-      // Axios.post(`http://localhost:3000/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${postPhotos.current.Post_Picture_URL}`, {   
-      //   Post_ID: postPhotoList.current[postPhotoList.current.length - 1].Post_ID,
-      //   Profile_ID: editedPostPhotos.Profile_ID,
-      //   Account_ID: editedPostPhotos.Account_ID,
-      //   Post_Picture_URL: editedPost.Post_Picture_URL,
-      // }).then(() => {
-      //   alert("successful post post");
-      // });
+      // //Send post photo to api to insert to database
+      Axios.post(`http://localhost:3000/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${postPhoto.current.Post_Picture_URL}`, {   
+        Post_ID: postPhotoList.current[postPhotoList.current.length - 1].Post_ID,
+        Profile_ID: editedPostPhotos.Profile_ID,
+        Account_ID: editedPostPhotos.Account_ID,
+        Post_Picture_URL: editedPost.Post_Picture_URL,
+      }).then(() => {
+        alert("successful post post");
+      });
 
   }
 
