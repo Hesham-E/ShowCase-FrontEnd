@@ -179,8 +179,8 @@ const App = () => {
   };
 
   const addPostHandler = (editedPost, editedPostPhotos) => {
-      //Send title and caption to api to insert to database
-      Axios.post(`http://localhost:3000/post/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${post.current.Title}/${post.current.Caption}`, {
+      //Send title and caption to api to insert to database 
+      Axios.post(`http://localhost:3000/api/post/${profile.current.Profile_ID}/${user.current.Account_ID}/${editedPost.Title}/${editedPost.Caption}`, {
         Profile_ID: editedPost.Profile_ID,
         Account_ID: editedPost.Account_ID,
         Title: editedPost.Title,
@@ -190,19 +190,21 @@ const App = () => {
       });
   
       //Get Post ID
-      Axios.get(`http://localhost:3000/post/last_id`).then((response) => {
-        postPhotoList.current = [...postPhotos, ...response.data];
-      });
+      // Axios.get("http://localhost:3000/api/post/last_id").then((response) => {
+      //   postPhotoList.current = [...postPhotos, ...response.data];
+      // });
   
-      // //Send post photo to api to insert to database
-      Axios.post(`http://localhost:3000/${post.current.Post_ID}/${post.current.Profile_ID}/${post.current.Account_ID}/${postPhoto.current.Post_Picture_URL}`, {   
-        Post_ID: postPhotoList.current[postPhotoList.current.length - 1].Post_ID,
-        Profile_ID: editedPostPhotos.Profile_ID,
-        Account_ID: editedPostPhotos.Account_ID,
-        Post_Picture_URL: editedPost.Post_Picture_URL,
-      }).then(() => {
-        alert("successful post post");
-      });
+      // // //Send post photo to api to insert to database
+      // Axios.post(`http://localhost:3000/api/${postPhotoList.current[postPhotoList.current.length - 1].Post_ID}/${profile.current.Profile_ID}/${user.current.Account_ID}/${editedPost.Post_Picture_URL}`, {   
+      //   Post_ID: postPhotoList.current[postPhotoList.current.length - 1].Post_ID,
+      //   Profile_ID: editedPostPhotos.Profile_ID,
+      //   Account_ID: editedPostPhotos.Account_ID,
+      //   Post_Picture_URL: editedPost.Post_Picture_URL,
+      // }).then(() => {
+      //   alert("successful post post");
+      // });
+
+      // navigate("/profile");
 
   }
 
@@ -212,7 +214,10 @@ const App = () => {
     console.log(profileList.current);
     console.log(user.current);
     console.log(profile.current);
-  }, [accList, authenticate, profileList, user, profile]);
+    console.log(postPhoto.current);
+    console.log(post.current);
+    console.log(postPhotoList.current[postPhotoList.current.length - 1].Post_ID);
+  }, [accList, authenticate, profileList, user, profile, postPhoto, post, postPhotoList]);
 
   return (
     <React.Fragment>

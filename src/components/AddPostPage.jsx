@@ -28,15 +28,17 @@ const AddPostPage = (props) => {
     //Don't need Post_ID because it will auto increment in database
     let editedPost = {
       Profile_ID: props.profile.Profile_ID,
-      Account_ID: props.user.Account_ID,
+      Account_ID: props.profile.Account_ID,
       Title: enteredTitle,
       Caption: enteredCaption,
     }
 
+    console.log(props.profile.Profile_ID + " = profile id in add post page")
+
     let editedPostPhotos = {
       Post_ID: retrievedPostID,
       Profile_ID: props.profile.Profile_ID,
-      Account_ID: props.user.Account_ID,
+      Account_ID: props.profile.Account_ID,
       Post_Picture_URL: enteredImageURL,
     }  
 
