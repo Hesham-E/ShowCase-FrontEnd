@@ -33,7 +33,7 @@ const HomePage = (props) => {
               welcome to search for other users without making one.
             </h4>
             <hr class="my-4"></hr>
-            <p className="IntroText">
+            <p>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab illo inventore veritatis et quasi architecto beatae vitae
@@ -48,6 +48,12 @@ const HomePage = (props) => {
               vel eum iure reprehenderit qui in ea voluptate velit esse quam
               nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
               voluptas nulla pariatur?
+            </p>
+            <p>
+              <b>
+                <i class="lni lni-map-marker"></i> 123 Main Ave, North Pole, H0H
+                0H0, Canada
+              </b>
             </p>
           </div>
         </div>
