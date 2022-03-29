@@ -10,8 +10,6 @@ const AddPostPage = (props) => {
   const [enteredImageURL, setEnteredImageURL] = useState("");
   const [retrievedPostID, setPostID] = useState("");
 
-  const [isSucces, setSuccess] = useState(null);
-
   let navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
