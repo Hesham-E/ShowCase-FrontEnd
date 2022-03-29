@@ -12,6 +12,11 @@ const ProfilePage = (props) => {
     let userBio = props.profile.Biography;
     let navigate = useNavigate();
 
+    const openLink = (link) => {
+        console.log(link);
+        window.open(link);
+    };
+
     return (
         <div className="ProfilePage">
             {props.auth ? <div className="Icon">
@@ -31,10 +36,10 @@ const ProfilePage = (props) => {
             <span className='BodyText'>{userBio}</span>
             <hr className='HeaderLine' />
             <div className='SocialsButtons'>
-                <button className='SocialButton'>Resume</button>
-                <button className='SocialButton'>LinkedIn</button>
-                <button className='SocialButton'>Email</button>
-                <button className='SocialButton'>GitHub</button>
+                <button className='SocialButton' onClick={() => openLink(props.profile.Resume)}>Resume</button>
+                <button className='SocialButton' onClick={() => openLink(props.profile.LinkedIn)}>LinkedIn</button>
+                <button className='SocialButton' onClick={() => openLink(`mailto:${props.user.Email}`)}>Email</button>
+                <button className='SocialButton' onClick={() => openLink(props.profile.GitHub)}>GitHub</button>
             </div>
             <hr className='HeaderLine' />
             <PostCard />
