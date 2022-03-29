@@ -9,8 +9,7 @@ const NavBar = (props) => {
             <a href="/login">Sign-in</a>
             <a href="/signup">Sign-up</a>
             <div class="search-container">
-                <form action="/searchresults">
-                    <input type="text" placeholder="Search.." name="search" />
+                <form action="/search">
                     <button type="submit">Search</button>
                 </form>
             </div>
