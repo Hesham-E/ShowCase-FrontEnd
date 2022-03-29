@@ -23,8 +23,11 @@ const ProfilePage = (props) => {
         console.log(props.photos);
         if (props.posts.length > 0) {
             for (let i = 0; i < props.posts.length; i++) {
-                if (props.photos[i]  != null || props.photos[i]  !== undefined) {
-                    postCards.push(<PostCard title={props.posts[i].Title} caption={props.posts[i].Caption} pic={props.photos[i].Photo_URL}/>);
+                let photo = props.photos.find((obj) => obj.Account_ID === props.posts[i].Account_ID);
+                console.log(photo);
+                
+                if (photo  != null && photo  !== undefined) {
+                    postCards.push(<PostCard title={props.posts[i].Title} caption={props.posts[i].Caption} pic={photo.Photo_URL}/>)
                 }
                 else {
                     postCards.push(<PostCard title={props.posts[i].Title} caption={props.posts[i].Caption} pic={undefined}/>)
