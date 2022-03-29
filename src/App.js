@@ -81,8 +81,7 @@ const App = () => {
   const profileList = useRef(profiles);
   const postList = useRef(posts);
   const postPhotoList = useRef(postPhotos);
-  const [currentUser, setCurrentUser] = useState(blankAcc);
-  const user = useRef(accList.current[1]);
+  const user = useRef(accList.current[0]);
   const profile = useRef(profileList.current[0]);
   const post = useRef(postList.current[0]);
   const postPhoto = useRef(postPhotoList.current[0]);
@@ -107,7 +106,25 @@ const App = () => {
                 setInLoginFunc(!inLoginFunc);
                 console.log(user.current);
                 console.log(profile.current);
-                navigate("/profile");
+
+                Axios.get("http://localhost:3000/api/post", {}).then(
+                  (postResponses) => {
+                    console.log(postResponses.data);
+                    postList.current = [...posts, ...postResponses.data];
+                    postList.current = postList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+                    console.log(postList.current);
+
+                    Axios.get("http://localhost:3000/api/post_photos", {}).then(
+                      (photoResponses) => {
+                        console.log(photoResponses.data);
+                        postPhotoList.current = [...postPhotos, ...photoResponses.data];
+                        postPhotoList.current = postPhotoList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+                        console.log(postPhotoList.current);
+                        navigate("/profile");
+                      }
+                    );
+                  }
+                );
               }
             });
           }
@@ -140,6 +157,8 @@ const App = () => {
               profile.current.GitHub = "https://www.github.com";
               profile.current.LinkedIn = "https://www.linkedin.com/";
               profile.current.Resume = "https://resume.io/";
+              postList.current = [];
+              postPhotoList.current = [];
               navigate("/profile");
             })
           });
@@ -184,35 +203,50 @@ const App = () => {
   };
 
   const addPostHandler = (editedPost, editedPostPhotos) => {
-      //Send title and caption to api to insert to database 
-      Axios.post(`http://localhost:3000/api/post/${profile.current.Profile_ID}/${user.current.Account_ID}/${editedPost.Title}/${editedPost.Caption}`, {
-        Profile_ID: editedPost.Profile_ID,
-        Account_ID: editedPost.Account_ID,
-        Title: editedPost.Title,
-        Caption: editedPost.Caption,
-      }).then(() => {
-        // alert("successfully posted title and caption");
-      });
-  
-      //Get Post ID
-      Axios.get('http://localhost:3000/api/post/last_id').then((response) => {
-        postList.current = [...posts, ...response.data];
-        // postList.current = postList.current[postList.current.length - 1];
-        console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
-        console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
-  
-        //Send post photo to api to insert to database
-        Axios.post(`http://localhost:3000/api/post_photos/${postList.current[postList.current.length - 1].Post_ID}/${profile.current.Profile_ID}/${user.current.Account_ID}`, {   
-          Post_ID: postList.current[postList.current.length - 1].Post_ID,
-          Profile_ID: editedPostPhotos.Profile_ID,
-          Account_ID: editedPostPhotos.Account_ID,
-          Photo_URL: editedPostPhotos.Post_Picture_URL,
-        }).then(() => {
-          alert("successfully posted picture");
-        });
+    //Send title and caption to api to insert to database 
+    Axios.post(`http://localhost:3000/api/post/${profile.current.Profile_ID}/${user.current.Account_ID}/${editedPost.Title}/${editedPost.Caption}`, {
+      Profile_ID: editedPost.Profile_ID,
+      Account_ID: editedPost.Account_ID,
+      Title: editedPost.Title,
+      Caption: editedPost.Caption,
+    }).then(() => {
+      // alert("successfully posted title and caption");
     });
 
-      // navigate("/profile");
+    //Get Post ID
+    Axios.get('http://localhost:3000/api/post/last_id').then((response) => {
+      postList.current = [...posts, ...response.data];
+      // postList.current = postList.current[postList.current.length - 1];
+      console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
+      console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
+
+      //Send post photo to api to insert to database
+      Axios.post(`http://localhost:3000/api/post_photos/${postList.current[postList.current.length - 1].Post_ID}/${profile.current.Profile_ID}/${user.current.Account_ID}`, {
+        Post_ID: postList.current[postList.current.length - 1].Post_ID,
+        Profile_ID: editedPostPhotos.Profile_ID,
+        Account_ID: editedPostPhotos.Account_ID,
+        Photo_URL: editedPostPhotos.Post_Picture_URL,
+      }).then(() => {
+        Axios.get("http://localhost:3000/api/post", {}).then(
+          (postResponses) => {
+            postList.current = [...posts, ...postResponses.data];
+            postList.current = postList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+            console.log(postList.current);
+
+            Axios.get("http://localhost:3000/api/post_photos", {}).then(
+              (photoResponses) => {
+                postPhotoList.current = [...postPhotos, ...photoResponses.data];
+                postPhotoList.current = postPhotoList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+                console.log(postPhotoList.current);
+                navigate("/profile");
+              }
+            );
+          }
+        );
+      });
+    });
+
+
 
   }
 
@@ -224,7 +258,7 @@ const App = () => {
     console.log(profile.current);
     console.log(postPhoto.current);
     console.log(post.current);
-    console.log(postPhotoList.current[postPhotoList.current.length - 1].Post_ID);
+    console.log(postPhotoList.current);
   }, [accList, authenticate, profileList, user, profile, postPhoto, post, postPhotoList]);
 
   return (
@@ -235,10 +269,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage logIn={logInHandler} />} />
           <Route path="/signup" element={<SignUpPage signUp={signUpHandler} allAccounts={accList.current} />} />
-          <Route path="/profile" element={<ProfilePage user={user.current} profile={profile.current} auth={authenticate.current} allProfiles={profileList.current} />} />
+          <Route path="/profile" element={<ProfilePage user={user.current} profile={profile.current} auth={authenticate.current} allProfiles={profileList.current} posts={postList.current} photos={postPhotoList.current} />} />
           <Route path="/edit-profile" element={<EditProfile user={user.current} profile={profile.current} editProfile={editProfileHander} allAccounts={accList.current} allProfiles={profileList.current} />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/addpost" element={<AddPostPage profile={profile.current} addPost={addPostHandler}/>} />
+          <Route path="/addpost" element={<AddPostPage profile={profile.current} addPost={addPostHandler} />} />
         </Routes>
       </div>
     </React.Fragment>
