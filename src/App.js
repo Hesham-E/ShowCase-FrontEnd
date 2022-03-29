@@ -146,6 +146,7 @@ const App = () => {
     console.log(tempProfileList[profileIndex]);
     profileList.current = tempProfileList;
     profile.current = editedProfile;
+    console.log(profile.current);
 
     Axios.put(`http://localhost:3000/api/profile/update/${user.current.Account_ID}/${profile.current.Profile_ID}`, {
       url: editedProfile.Profile_Picture_URL,
@@ -153,7 +154,7 @@ const App = () => {
       bio: editedProfile.Biography,
       resume: editedProfile.Resume,
       linkedin: editedProfile.LinkedIn,
-      git: editedProfile.GitHub
+      github: editedProfile.GitHub,
     });
 
     Axios.put(`http://localhost:3000/api/account/${user.current.Account_ID}/${user.current.Email}/${user.current.Password}/${user.current.First_Name}/${user.current.Last_Name}`, {});

@@ -12,7 +12,7 @@ const EditProfile = (props) => {
     const [enteredDegree, setEnteredDegree] = useState(props.profile.Degree);
     const [enteredBio, setEnteredBio] = useState(props.profile.Biography);
     const [enteredResumeLink, setEnteredResumeLink] = useState(props.profile.Resume);
-    const [enteredLinkedinLink, setEnteredLinkedinLink] = useState(props.profile.Linkedin);
+    const [enteredLinkedinLink, setEnteredLinkedinLink] = useState(props.profile.LinkedIn);
     const [enteredGitHubLink, setEnteredGitHubLink] = useState(props.profile.GitHub);
     
     let navigate = useNavigate();
@@ -64,7 +64,7 @@ const EditProfile = (props) => {
             Degree: enteredDegree,
             Biography: enteredBio,
             Resume: enteredResumeLink,
-            Linkedin: enteredLinkedinLink,
+            LinkedIn: enteredLinkedinLink,
             GitHub: enteredGitHubLink,    
         }
 
