@@ -16,41 +16,24 @@ import EditProfile from './components/EditProfile';
 let accounts = [
   {
     Account_ID: 0,
-    Email: "dagvadorj.altankhuya@ucalgary.ca",
-    Password: "Password",
-    First_Name: "Tom",
-    Last_Name: "Altankhuyag",
-  },
-  {
-    Account_ID: 1,
     Email: "Email",
     Password: "Password",
     First_Name: "Test",
     Last_Name: "Acc",
-  }
+  },
 ];
 
 let profiles = [
   {
-    Profile_ID: 1,
-    Account_ID: 1,
-    Profile_Picture_URL: "../images/DefaultProfilePicture.png",
+    Profile_ID: 0,
+    Account_ID: 0,
+    Profile_Picture_URL: "https://github.com/Hesham-E/ShowCase-FrontEnd/blob/main/src/images/DefaultProfilePicture.png?raw=true",
     Degree: "None",
     Biography: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
     Resume: "wwww.resume.com/test",
     Linkedin: "wwww.linkedin.com/test",
     GitHub: "www.github.com/test",
-  }
-  // {
-  //   Profile_ID: 2,
-  //   Account_ID: 2,
-  //   Profile_Picture_URL: "../images/DefaultProfilePicture.png",
-  //   Degree: "None",
-  //   Biography: "Success",
-  //   Resume: "wwww.resume.com/test",
-  //   Linkedin: "wwww.linkedin.com/test",
-  //   GitHub: "www.github.com/test",
-  // }
+  },
 ];
 
 let blankAcc = {
@@ -64,7 +47,7 @@ let blankAcc = {
 let blankProfile = {
   Profile_ID: "",
   Account_ID: "",
-  Profile_Picture_URL: "../images/DefaultProfilePicture.png",
+  Profile_Picture_URL: "https://github.com/Hesham-E/ShowCase-FrontEnd/blob/main/src/images/DefaultProfilePicture.png?raw=true",
   Degree: "",
   Biography: "",
   Resume: "",
@@ -162,7 +145,7 @@ const App = () => {
     profile.current = editedProfile;
 
     Axios.put(`http://localhost:3000/api/profile/update/${user.current.Account_ID}/${profile.current.Profile_ID}`, {
-      url: '../images/DefaultProfilePicture.png',
+      url: editedProfile.Profile_Picture_URL,
       degree: editedProfile.Degree,
       bio: editedProfile.Biography,
       resume: editedProfile.Resume,

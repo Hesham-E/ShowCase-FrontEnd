@@ -14,8 +14,6 @@ const EditProfile = (props) => {
     const [enteredResumeLink, setEnteredResumeLink] = useState(props.profile.Resume);
     const [enteredLinkedinLink, setEnteredLinkedinLink] = useState(props.profile.Linkedin);
     const [enteredGitHubLink, setEnteredGitHubLink] = useState(props.profile.GitHub);
-
-    let profilePic = require("../images/DefaultProfilePicture.png");
     
     let navigate = useNavigate();
 
@@ -62,12 +60,12 @@ const EditProfile = (props) => {
         let editedProfile = {
             Profile_ID: props.profile.Profile_ID,
             Account_ID: props.user.Account_ID,
-            Profile_Picture_URL: "../images/DefaultProfilePicture.png",
+            Profile_Picture_URL: enteredProfilePic,
             Degree: enteredDegree,
             Biography: enteredBio,
-            Resume: props.profile.Resume,
-            Linkedin: props.profile.Linkedin,
-            GitHub: props.profile.GitHub,    
+            Resume: enteredResumeLink,
+            Linkedin: enteredLinkedinLink,
+            GitHub: enteredGitHubLink,    
         }
 
         let unique = props.allAccounts.every((account) => {
@@ -108,11 +106,10 @@ const EditProfile = (props) => {
     return (
         <div className='EditProfile'>
             <label className="HeaderText">Edit Your Profile!</label>
+            <img className="ProfilePic" src={props.profile.Profile_Picture_URL} alt="" />
             <div className="QuestionBar">
                 <label className="BodyText">Profile Picture:</label>
-                <img className="ProfilePic" src={profilePic} alt="" />
-                {/*  value={enteredProfilePic} onChange={profilePicChangeHandler */}
-                <input type="file" onChange={profilePicChangeHandler} />
+                <input value={enteredProfilePic} onChange={profilePicChangeHandler} />
             </div>            
             <div className='QuestionBar'>
                 <label className="BodyText">First Name: </label>
