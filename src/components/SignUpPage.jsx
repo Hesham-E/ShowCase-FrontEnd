@@ -42,7 +42,6 @@ const SignUpPage = (props) => {
 
     if (unique)
     {
-      newAcc.Account_ID = props.allAccounts.slice(-1).Account_ID + 1;
       props.signUp(newAcc);
     }
     else
