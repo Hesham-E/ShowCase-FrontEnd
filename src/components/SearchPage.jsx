@@ -14,7 +14,6 @@ function SearchPage() {
             <hr className="HeaderLine" />
 
             <SearchResult />
-            <SearchResult />
 
         </div>
     )
