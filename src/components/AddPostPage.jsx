@@ -7,11 +7,8 @@ import "./GeneralStyles.css";
 const AddPostPage = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredCaption, setEnteredCaption] = useState("");
-  const [enteredImage, setEnteredImage] = useState({
-    file:[],
-    filepreview: null,
-   });
-  const [isSucces, setSuccess] = useState(null);
+  const [enteredImageURL, setEnteredImageURL] = useState("");
+  const [retrievedPostID, setPostID] = useState("");
 
   let navigate = useNavigate();
 
@@ -23,31 +20,31 @@ const AddPostPage = (props) => {
     setEnteredCaption(event.target.value);
   };
 
-   const imageChangeHandler = (event) => {
-    setEnteredImage({
-      ...enteredImage,
-      file:event.target.files[0],
-      filepreview:URL.createObjectURL(event.target.files[0]),
-    });
+  const imageChangeHandler = (event) => {
+    setEnteredImageURL(event.target.value);
+  }
+    
+  const save = async () =>{
+    //Don't need Post_ID because it will auto increment in database
+    let editedPost = {
+      Profile_ID: props.profile.Profile_ID,
+      Account_ID: props.profile.Account_ID,
+      Title: enteredTitle,
+      Caption: enteredCaption,
+    }
 
-  // const addPost = () => {
-  //   let newPost = {
-  //     Account_ID: "",
-  //     Title: enteredTitle,
-  //     Caption: enteredCaption,
-  //     Image: enteredImage,
-  //   };
-    // let unique = props.allAccounts.every((account) => {
-    //   return account.Email !== newPost.Email;
-    // });
+    console.log(props.profile.Profile_ID + " = profile id in add post page")
+    console.log(enteredImageURL + " = image url in add post page")
 
-    // if (unique) {
-    //   newPost.Account_ID = props.allAccounts.slice(-1).Account_ID + 1;
-    //   props.signUp(newPost);
-    // } else {
-    //   clearPage();
-    // }
-  };
+    let editedPostPhotos = {
+      Post_ID: retrievedPostID,
+      Profile_ID: props.profile.Profile_ID,
+      Account_ID: props.profile.Account_ID,
+      Post_Picture_URL: enteredImageURL,
+    }  
+
+    props.addPost(editedPost, editedPostPhotos);
+  }
 
   const goBack = () => {
     clearPage();
@@ -57,25 +54,8 @@ const AddPostPage = (props) => {
   const clearPage = () => {
     setEnteredTitle("");
     setEnteredCaption("");
-    setEnteredImage("");
+    setEnteredImageURL("");
   };
-
-  //Sending information to backend
-  const addPost = async () =>{
-    const formdata = new FormData(); 
-    formdata.append('avatar', enteredImage.file);
-
-    axios.post("http://localhost:3000/imageupload", formdata,{   
-            headers: { "Content-Type": "multipart/form-data" } 
-    })
-    .then(res => { // then print response status
-      console.warn(res);
-      if(res.data.success === 1){
-        setSuccess("Image upload successfully");
-      }
-
-    })
-  }
 
   return (
     <div className="AddPostPage">
@@ -92,18 +72,17 @@ const AddPostPage = (props) => {
       </div>
 
       <div className="QuestionBar">
-      {isSucces !== null ? <h4> {isSucces} </h4> :null }
         <label className="BodyText">Image:</label>
-        <input type="file" onChange={imageChangeHandler} />
+        <input type="text" onChange={imageChangeHandler} />
         
       </div>
       <div className="QuestionBar">
-      {enteredImage.filepreview != null ? 
-        <img className="previewimg"  src={enteredImage.filepreview} alt="UploadImage" />
+      {enteredImageURL!= null ? 
+        <img className="previewimg"  src={enteredImageURL} alt="UploadImage" />
       : null}
       </div>
 
-      <button className="ButtonBorder" onClick={addPost}>
+      <button className="ButtonBorder" onClick={save}>
         <label className="BodyText">Add Post</label>
       </button>
 

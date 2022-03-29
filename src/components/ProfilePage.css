@@ -30,7 +30,7 @@
     border-radius: 20%;
     width: auto;
     font-size: 40px;
-    padding: 10px 60px;
+    padding: max(0px, 1%) max(0px, 3%);
     cursor: pointer;
 }
 

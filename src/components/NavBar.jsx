@@ -4,7 +4,7 @@ import "./GeneralStyles.css";
 
 const NavBar = (props) => {
     return (
-        <div class="topnav">
+        <div className="topnav">
             <a href="/">Home</a>
             <a href="/login">Sign-in</a>
             <a href="/signup">Sign-up</a>
