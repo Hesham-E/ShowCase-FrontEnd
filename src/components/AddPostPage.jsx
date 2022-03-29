@@ -7,10 +7,7 @@ import "./GeneralStyles.css";
 const AddPostPage = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredCaption, setEnteredCaption] = useState("");
-  const [enteredImageURL, setEnteredImageURL] = useState({
-    file:[],
-    filepreview: null,
-   });
+  const [enteredImageURL, setEnteredImageURL] = useState("");
   const [retrievedPostID, setPostID] = useState("");
 
   const [isSucces, setSuccess] = useState(null);
@@ -45,7 +42,7 @@ const AddPostPage = (props) => {
       Post_Picture_URL: enteredImageURL,
     }  
 
-      props.addPost(editedPost, editedPostPhotos);
+    props.addPost(editedPost, editedPostPhotos);
   }
 
   const goBack = () => {
