@@ -38,6 +38,7 @@ let profiles = [
 
 let posts = [
   {
+    Post_ID: -1,
     Profile_ID: 0,
     Account_ID: 0,
     Title: "Automated Robot",
@@ -186,23 +187,26 @@ const App = () => {
         Title: editedPost.Title,
         Caption: editedPost.Caption,
       }).then(() => {
-        alert("successful post post");
+        // alert("successfully posted title and caption");
       });
   
       //Get Post ID
-      // Axios.get("http://localhost:3000/api/post/last_id").then((response) => {
-      //   postPhotoList.current = [...postPhotos, ...response.data];
-      // });
+      Axios.get('http://localhost:3000/api/post/last_id').then((response) => {
+        postList.current = [...posts, ...response.data];
+        // postList.current = postList.current[postList.current.length - 1];
+        console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
+        console.log(postList.current[postList.current.length - 1].Post_ID + " = post_id from app.js");
   
-      // // //Send post photo to api to insert to database
-      // Axios.post(`http://localhost:3000/api/${postPhotoList.current[postPhotoList.current.length - 1].Post_ID}/${profile.current.Profile_ID}/${user.current.Account_ID}/${editedPost.Post_Picture_URL}`, {   
-      //   Post_ID: postPhotoList.current[postPhotoList.current.length - 1].Post_ID,
-      //   Profile_ID: editedPostPhotos.Profile_ID,
-      //   Account_ID: editedPostPhotos.Account_ID,
-      //   Post_Picture_URL: editedPost.Post_Picture_URL,
-      // }).then(() => {
-      //   alert("successful post post");
-      // });
+        //Send post photo to api to insert to database
+        Axios.post(`http://localhost:3000/api/post_photos/${postList.current[postList.current.length - 1].Post_ID}/${profile.current.Profile_ID}/${user.current.Account_ID}`, {   
+          Post_ID: postList.current[postList.current.length - 1].Post_ID,
+          Profile_ID: editedPostPhotos.Profile_ID,
+          Account_ID: editedPostPhotos.Account_ID,
+          Photo_URL: editedPostPhotos.Post_Picture_URL,
+        }).then(() => {
+          alert("successfully posted picture");
+        });
+    });
 
       // navigate("/profile");
 

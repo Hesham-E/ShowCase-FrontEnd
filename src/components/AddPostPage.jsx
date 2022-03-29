@@ -34,6 +34,7 @@ const AddPostPage = (props) => {
     }
 
     console.log(props.profile.Profile_ID + " = profile id in add post page")
+    console.log(enteredImageURL + " = image url in add post page")
 
     let editedPostPhotos = {
       Post_ID: retrievedPostID,
