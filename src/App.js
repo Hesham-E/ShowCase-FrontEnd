@@ -127,13 +127,12 @@ const App = () => {
           accList.current = [...accounts, newAccount];
           setInSignUpFunc(!inSignUpFunc);
 
-          Axios.post(`http://localhost:3000/api/profile`, {
-            Account_ID: newAccount.Account_ID
-          }).then((response) => {
-            let tempProfile = blankProfile;
-            tempProfile.Account_ID = newAccount.Account_ID;
-            profile.current = tempProfile;
-            navigate("/profile");
+          Axios.post(`http://localhost:3000/api/profile/${newAccount.Account_ID}`, {}).then((response) => {
+            Axios.get("http://localhost:3000/api/profile", {}).then((response) => {
+              profileList.current = [...profiles, ...response.data];
+              profile.current = profileList.current[profileList.current.length - 1];
+              navigate("/profile");
+            })
           });
         });
       }
@@ -171,7 +170,7 @@ const App = () => {
       git: editedProfile.GitHub
     });
 
-    // Axios.put(`http://localhost:3000/api/account/${user.current.Account_ID}`) need one for the account details as well
+    Axios.put(`http://localhost:3000/api/account/${user.current.Account_ID}/${user.current.Email}/${user.current.Password}/${user.current.First_Name}/${user.current.Last_Name}`, {});
   };
 
   useEffect(() => { //jank way to ensure accountList updated before verifying inputed details

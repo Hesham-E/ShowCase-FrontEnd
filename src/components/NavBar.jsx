@@ -5,7 +5,7 @@ import "./GeneralStyles.css";
 const NavBar = (props) => {
     return (
         <div className="topnav">
-            <a className="active" href="/">Home</a>
+            <a href="/">Home</a>
             <a href="/login">Sign-in</a>
             <a href="/signup">Sign-up</a>
             <div className="search-container">
