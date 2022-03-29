@@ -11,10 +11,25 @@ const ProfilePage = (props) => {
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
     let navigate = useNavigate();
+    let postCards = [];
 
     const openLink = (link) => {
         console.log(link);
         window.open(link);
+    };
+
+    const createPostCards = () => {
+        console.log(props.posts);
+        console.log(props.photos);
+        if (props.posts.length > 0) {
+            for (let i = 0; i < props.posts.length; i++) {
+                let photo = props.photos.find((obj) => obj.Account_ID === props.posts[i].Account_ID);
+                console.log(photo);
+                postCards.push(<PostCard title={props.posts[i].Title} caption={props.posts[i].Caption} pic={photo.Photo_URL}/>)
+            }
+        }
+        
+        return postCards;
     };
 
     return (
@@ -42,8 +57,7 @@ const ProfilePage = (props) => {
                 <button className='SocialButton' onClick={() => openLink(props.profile.GitHub)}>GitHub</button>
             </div>
             <hr className='HeaderLine' />
-            <PostCard />
-            <PostCard />
+            {createPostCards()}
         </div>
     );
 }
