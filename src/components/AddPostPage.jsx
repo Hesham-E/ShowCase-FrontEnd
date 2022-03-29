@@ -43,18 +43,9 @@ const AddPostPage = (props) => {
       Profile_ID: props.profile.Profile_ID,
       Account_ID: props.user.Account_ID,
       Post_Picture_URL: enteredImageURL,
-    }
+    }  
 
-    let unique = props.allAccounts.every((account) => {
-      return account.Email !== newPost.Email;
-    });  
-
-    if (unique) {
       props.addPost(editedPost, editedPostPhotos);
-    } else {
-      clearPage();
-    }
-
   }
 
   const goBack = () => {
