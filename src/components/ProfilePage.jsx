@@ -6,7 +6,6 @@ import PostCard from './PostCard';
 
 const ProfilePage = (props) => {
 
-    let profilePic = require("../images/DefaultProfilePicture.png");
     let addPostIcon = require("../images/addIcon.png");
     let editPostIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
@@ -26,7 +25,7 @@ const ProfilePage = (props) => {
             :
             {}}
             
-            <img className="ProfilePic" src={profilePic} alt="" />
+            <img className="ProfilePic" src={props.profile.Profile_Picture_URL} alt="" />
             <hr className='HeaderLine' />
             <span className='HeaderText'>{userName}</span>
             <span className='BodyText'>{userBio}</span>
