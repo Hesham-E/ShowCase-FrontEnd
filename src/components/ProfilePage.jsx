@@ -23,7 +23,7 @@ const ProfilePage = (props) => {
         console.log(props.photos);
         if (props.posts.length > 0) {
             for (let i = 0; i < props.posts.length; i++) {
-                let photo = props.photos.find((obj) => obj.Account_ID === props.posts[i].Account_ID);
+                let photo = props.photos.find((obj) => obj.Post_ID === props.posts[i].Post_ID);
                 console.log(photo);
                 
                 if (photo  != null && photo  !== undefined) {
