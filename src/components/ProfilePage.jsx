@@ -45,6 +45,9 @@ const ProfilePage = (props) => {
                 <a onClick={() => {navigate("/edit-profile")}}>
                     <img className="Icon" src={editPostIcon} alt="" />
                 </a>
+                <a onClick={() => {navigate("/")}}>
+                    <p className='LogOut'>Log Out</p>
+                </a>
             </div>
             :
             {}}

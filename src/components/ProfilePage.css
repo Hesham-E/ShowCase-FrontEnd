@@ -42,3 +42,8 @@
     opacity: 0.9;
     margin: 1.5vh;
 }
+
+.LogOut {
+    background-color: #1199b1;
+    text-align: center;
+}
