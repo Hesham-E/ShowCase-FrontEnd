@@ -11,7 +11,7 @@ import SearchPage from './components/SearchPage';
 import NavBar from './components/NavBar';
 import AddPostPage from './components/AddPostPage';
 import EditProfile from './components/EditProfile';
-
+import EditPost from './components/EditPost';
 
 let accounts = [
   {
@@ -243,14 +243,69 @@ const App = () => {
         });
       });
     });
+  };
 
+  const editPostHandler = (editedPost, editedPostPhotos) => {
+    if (postList.current.find((obj) => obj.Post_ID === editedPost.Post_ID) !== null) {
+      Axios.put(`http://localhost:3000/api/post/${editedPost.Post_ID}`, {
+        Title: editedPost.Title,
+        Caption: editedPost.Caption,
+      }).then(() => {
+        Axios.put(`http://localhost:3000/api/post_photos/${editedPost.Post_ID}`, {
+          Photo_URL: editedPostPhotos.Post_Picture_URL,
+        }).then(() => {
 
+          Axios.get("http://localhost:3000/api/post", {}).then(
+            (postResponses) => {
+              console.log(postResponses.data);
+              postList.current = [...posts, ...postResponses.data];
+              postList.current = postList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+              console.log(postList.current);
 
+              Axios.get("http://localhost:3000/api/post_photos", {}).then(
+                (photoResponses) => {
+                  console.log(photoResponses.data);
+                  postPhotoList.current = [...postPhotos, ...photoResponses.data];
+                  postPhotoList.current = postPhotoList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+                  console.log(postPhotoList.current);
+                  navigate("/profile");
+                }
+              );
+            }
+          );
+        })
+      });
+    }
+  };
 
+  const deletePostHandler = (editedPost, editedPostPhotos) => {
+    Axios.delete(`http://localhost:3000/api/post/${editedPost.Post_ID}`, {}).then(() => {
+      Axios.delete(`http://localhost:3000/api/post_photos/${editedPost.Post_ID}`, {}).then(() => {
+        Axios.get("http://localhost:3000/api/post", {}).then(
+          (postResponses) => {
+            console.log(postResponses.data);
+            postList.current = [...posts, ...postResponses.data];
+            postList.current = postList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+            console.log(postList.current);
 
-  }
+            Axios.get("http://localhost:3000/api/post_photos", {}).then(
+              (photoResponses) => {
+                console.log(photoResponses.data);
+                postPhotoList.current = [...postPhotos, ...photoResponses.data];
+                postPhotoList.current = postPhotoList.current.filter((obj) => obj.Account_ID === user.current.Account_ID);
+                console.log(postPhotoList.current);
+                navigate("/profile");
+              }
+            );
+          }
+        );
+      }
+      );
+    }
+    );
+  };
 
-  useEffect(() => { //jank way to ensure accountList updated before verifying inputed details
+  useEffect(() => { //jank way to ensure update before verifying inputed details
     console.log(accList.current);
     console.log(authenticate.current);
     console.log(profileList.current);
@@ -269,10 +324,11 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage logIn={logInHandler} />} />
           <Route path="/signup" element={<SignUpPage signUp={signUpHandler} allAccounts={accList.current} />} />
-          <Route path="/profile" element={<ProfilePage user={user.current} profile={profile.current} auth={authenticate.current} allProfiles={profileList.current} posts={postList.current} photos={postPhotoList.current} />} />
-          <Route path="/edit-profile" element={<EditProfile user={user.current} profile={profile.current} editProfile={editProfileHander} allAccounts={accList.current} allProfiles={profileList.current} />} />
+          <Route path="/profile" element={<ProfilePage user={user.current} profile={profile.current} auth={authenticate.current} posts={postList.current} photos={postPhotoList.current} />} />
+          <Route path="/edit-profile" element={<EditProfile user={user.current} profile={profile.current} editProfile={editProfileHander} allAccounts={accList.current} />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/addpost" element={<AddPostPage profile={profile.current} addPost={addPostHandler} />} />
+          <Route path="/edit-post" element={<EditPost editPost={editPostHandler} deletePost={deletePostHandler} user={user.current} profile={profile.current} auth={authenticate.current} posts={postList.current} photos={postPhotoList.current} />} />
         </Routes>
       </div>
     </React.Fragment>

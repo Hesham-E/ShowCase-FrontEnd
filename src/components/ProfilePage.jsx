@@ -7,7 +7,7 @@ import PostCard from './PostCard';
 const ProfilePage = (props) => {
 
     let addPostIcon = require("../images/addIcon.png");
-    let editPostIcon = require("../images/pencilIcon.png");
+    let editProfileIcon = require("../images/pencilIcon.png");
     let userName = props.user.First_Name.concat(" ", props.user.Last_Name);
     let userBio = props.profile.Biography;
     let navigate = useNavigate();
@@ -46,7 +46,10 @@ const ProfilePage = (props) => {
                     <img className="Icon" src={addPostIcon} alt="" />
                 </a>
                 <a onClick={() => {navigate("/edit-profile")}}>
-                    <img className="Icon" src={editPostIcon} alt="" />
+                    <img className="Icon" src={editProfileIcon} alt="" />
+                </a>
+                <a onClick={() => {navigate("/edit-post")}}>
+                    <label>Edit Posts</label>
                 </a>
                 <a onClick={() => {navigate("/")}}>
                     <p className='LogOut'>Log Out</p>
