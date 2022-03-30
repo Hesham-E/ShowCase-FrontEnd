@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import "./GeneralStyles.css";
 import "./EditProfile.css";
+import PostCard from './PostCard';
 
 const EditProfile = (props) => {
     const [enteredProfilePic, setEnteredProfilePic] = useState(props.profile.Profile_Picture_URL);
@@ -16,7 +17,7 @@ const EditProfile = (props) => {
     const [enteredGitHubLink, setEnteredGitHubLink] = useState(props.profile.GitHub);
     
     let navigate = useNavigate();
-
+    
     const profilePicChangeHandler = (event) => {
         setEnteredProfilePic(event.target.value);
     };

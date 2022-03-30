@@ -78,7 +78,7 @@ const AddPostPage = (props) => {
       </div>
       <div className="QuestionBar">
       {enteredImageURL!= null ? 
-        <img className="previewimg"  src={enteredImageURL} alt="UploadImage" />
+        <img className="previewimg"  src={enteredImageURL} alt="Preview of Image URL" />
       : null}
       </div>
 
